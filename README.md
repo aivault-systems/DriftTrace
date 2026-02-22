@@ -1,71 +1,61 @@
 # DriftTrace
 
-Runtime behavioral drift detection engine for autonomous AI security pipelines.
+Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
 
 ## Overview
 
-DriftTrace operates as a runtime control layer that continuously validates objective alignment during agent execution.
+DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
 
-DriftTrace is a runtime behavioral validation engine for autonomous AI agents.
-
-Instead of asking whether an agent succeeded or failed, DriftTrace measures how far the agent’s execution trajectory deviates from its original objective during multi step reasoning.
-
-It quantifies behavioral divergence over time before visible failure occurs.
+Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
 
 ## The Problem
 
-Autonomous agents do not fail instantly.
-
+Autonomous agents rarely fail instantly.  
 They drift.
 
-Small reasoning deviations accumulate across steps.  
-Minor objective reinterpretations compound.  
-The final output may look correct while the internal trajectory is no longer aligned with the original intent.
+Small reasoning deviations accumulate across steps. Minor objective reinterpretations compound. The final output may still look acceptable while the internal trajectory has already diverged.
 
-There is currently no simple structured metric that measures this drift in real time.
+Security teams need an early warning signal, not a postmortem.
 
-This creates a blind spot inside AI runtime security architectures.
+## What DriftTrace Produces
 
-## What DriftTrace Does
+DriftTrace outputs a small set of signals that are easy to ingest:
 
-DriftTrace compares intermediate reasoning states against the original objective representation and produces a cumulative deviation score.
+1. drift_score, a continuous score that increases as objective deviation grows  
+2. severity, a normalized level derived from drift_score and thresholds  
+3. objective_fidelity, estimated alignment of the current step to the original objective  
+4. step_index, where the drift was observed  
+5. metadata, optional context for correlation  
 
-It introduces structured behavioral telemetry into AI runtime environments.
+## Core Capabilities
 
-Core capabilities:
+1. Objective representation tracking  
+2. Multi step deviation scoring  
+3. Cumulative divergence monitoring  
+4. Threshold based alerting  
+5. Exportable telemetry record for pipelines  
 
-- Objective embedding comparison  
-- Multi step deviation scoring  
-- Cumulative behavioral divergence tracking  
-- Threshold based drift alerting  
+## Quickstart
 
-## How to Run
-
-Install dependencies:
+Install dependencies
 
 pip install -r requirements.txt
 
-Run:
+Run
 
 python drifttrace.py
 
-## Enterprise Integration Vision
-
-DriftTrace is designed as a runtime behavioral validation engine that can operate as a sidecar component alongside autonomous AI systems.
-
-It can integrate with existing runtime security platforms, observability pipelines, and SOC telemetry flows.
-
 ## Usage Example
 
-Below is a simplified conceptual example of how DriftTrace may be invoked during multi step agent execution:
+Conceptual usage during multi step agent execution:
 
 ```python
 from drifttrace import DriftTrace
 
-engine = DriftTrace(objective="Generate a financial risk summary")
+engine = DriftTrace(objective="Generate financial risk summary")
 
 for step in agent_execution_steps:
-    drift_score = engine.evaluate(step)
+    signal = engine.evaluate(step)
 
-    if drift_score > engine.threshold:
+    if signal["severity"] in ["HIGH", "CRITICAL"]:
         print("Behavioral drift detected")
