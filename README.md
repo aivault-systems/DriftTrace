@@ -1,96 +1,61 @@
-DriftTrace
+# DriftTrace
 
-Objective drift detection engine for autonomous agents.
+Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
+
+## Overview
 
 DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
 
-Instead of asking whether the agent succeeded or failed, DriftTrace quantifies behavioral divergence over time.
+Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
 
-The Problem
+## The Problem
 
-Autonomous agents do not fail instantly.
-
+Autonomous agents rarely fail instantly.  
 They drift.
 
-Small reasoning deviations accumulate across steps.
-Minor objective reinterpretations compound.
-The final output may look correct while the internal trajectory is no longer aligned with the original intent.
+Small reasoning deviations accumulate across steps. Minor objective reinterpretations compound. The final output may still look acceptable while the internal trajectory has already diverged.
 
-There is currently no simple metric that measures this drift in a structured way.
+Security teams need an early warning signal, not a postmortem.
 
-What DriftTrace Does
+## What DriftTrace Produces
 
-DriftTrace:
+DriftTrace outputs a small set of signals that are easy to ingest:
 
-• Monitors an agent execution step by step
-• Compares each step against the original objective
-• Assigns a deviation score
-• Produces a cumulative Drift Index
+1. drift_score, a continuous score that increases as objective deviation grows  
+2. severity, a normalized level derived from drift_score and thresholds  
+3. objective_fidelity, estimated alignment of the current step to the original objective  
+4. step_index, where the drift was observed  
+5. metadata, optional context for correlation  
 
-This creates a measurable signal of objective misalignment.
+## Core Capabilities
 
-How It Works
+1. Objective representation tracking  
+2. Multi step deviation scoring  
+3. Cumulative divergence monitoring  
+4. Threshold based alerting  
+5. Exportable telemetry record for pipelines  
 
-Define an original objective
+## Quickstart
 
-Feed the agent step trace
+Install dependencies
 
-Compute semantic distance per step
-
-Aggregate into a Drift Index
-
-The result is a structured quantification of alignment decay.
-
-Quick Example
-
-from drifttrace import DriftTrace
-
-objective = "Generate a secure database configuration for production use"
-
-steps = [
-    "Create database instance",
-    "Disable authentication for easier testing",
-    "Open port to all IP addresses"
-]
-
-engine = DriftTrace()
-score = engine.evaluate(objective, steps)
-
-print(score)
-
-Example output:
-
-Drift Index: 0.72
-Risk Level: High
-Deviation Detected at Step 2
-
-Why This Matters
-
-As AI systems move toward autonomy, objective drift becomes a systemic risk.
-
-DriftTrace introduces a primitive for:
-
-• Agent governance
-• Alignment monitoring
-• Runtime behavioral auditing
-• Autonomous risk quantification
-
-Positioning
-
-DriftTrace can operate:
-
-• As a standalone research tool
-• As a runtime monitoring module
-• As a control layer component in larger AI infrastructure
-
-It is designed to plug into higher level systems focused on AI governance and runtime control.
-
-Installation
 pip install -r requirements.txt
 
-Vision
+Run
 
-DriftTrace is part of a broader effort to introduce measurable alignment metrics into autonomous AI systems.
+python drifttrace.py
 
-Quantification precedes control.
-Control precedes safety.
+## Usage Example
+
+Conceptual usage during multi step agent execution:
+
+```python
+from drifttrace import DriftTrace
+
+engine = DriftTrace(objective="Generate financial risk summary")
+
+for step in agent_execution_steps:
+    signal = engine.evaluate(step)
+
+    if signal["severity"] in ["HIGH", "CRITICAL"]:
+        print("Behavioral drift detected")
