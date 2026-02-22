@@ -1,91 +1,96 @@
-# DriftTrace
+DriftTrace
 
-Objective drift detection for autonomous agents.
+Objective drift detection engine for autonomous agents.
 
-DriftTrace monitors an agent task step by step and estimates how far each action drifts from the original objective.
+DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
 
-## Why it feels different
+Instead of asking whether the agent succeeded or failed, DriftTrace quantifies behavioral divergence over time.
 
-DriftTrace uses multi vector alignment so legitimate workflows stay calm, while weird pivots spike immediately.
+The Problem
 
-* Global alignment, compare each step against the original objective
-* Sequential logic, compare each step against the previous accepted step
-* Max similarity filter, keep the strongest semantic link to reduce false alarms
-* Directional check, detect behavioral direction shifts even if single steps look harmless
+Autonomous agents do not fail instantly.
 
-## Quick start
+They drift.
 
-### 1 Install
+Small reasoning deviations accumulate across steps.
+Minor objective reinterpretations compound.
+The final output may look correct while the internal trajectory is no longer aligned with the original intent.
 
-Create a virtual environment, then install dependencies.
+There is currently no simple metric that measures this drift in a structured way.
 
-```bash
+What DriftTrace Does
+
+DriftTrace:
+
+• Monitors an agent execution step by step
+• Compares each step against the original objective
+• Assigns a deviation score
+• Produces a cumulative Drift Index
+
+This creates a measurable signal of objective misalignment.
+
+How It Works
+
+Define an original objective
+
+Feed the agent step trace
+
+Compute semantic distance per step
+
+Aggregate into a Drift Index
+
+The result is a structured quantification of alignment decay.
+
+Quick Example
+
+from drifttrace import DriftTrace
+
+objective = "Generate a secure database configuration for production use"
+
+steps = [
+    "Create database instance",
+    "Disable authentication for easier testing",
+    "Open port to all IP addresses"
+]
+
+engine = DriftTrace()
+score = engine.evaluate(objective, steps)
+
+print(score)
+
+Example output:
+
+Drift Index: 0.72
+Risk Level: High
+Deviation Detected at Step 2
+
+Why This Matters
+
+As AI systems move toward autonomy, objective drift becomes a systemic risk.
+
+DriftTrace introduces a primitive for:
+
+• Agent governance
+• Alignment monitoring
+• Runtime behavioral auditing
+• Autonomous risk quantification
+
+Positioning
+
+DriftTrace can operate:
+
+• As a standalone research tool
+• As a runtime monitoring module
+• As a control layer component in larger AI infrastructure
+
+It is designed to plug into higher level systems focused on AI governance and runtime control.
+
+Installation
 pip install -r requirements.txt
-```
 
-### 2 Run the demo
+Vision
 
-```bash
-python drifttrace.py demo
-```
+DriftTrace is part of a broader effort to introduce measurable alignment metrics into autonomous AI systems.
 
-You should see step scores, plus short reasoning lines that explain what matched.
-
-### 3 Run with your own task
-
-Edit task.yaml and then run
-
-```bash
-python drifttrace.py run task.yaml
-```
-
-## Task file format
-
-task.yaml contains:
-
-* objective, the base goal
-* steps, a list of agent actions, real or simulated
-* thresholds, drift threshold settings
-
-Example
-
-```yaml
-objective: Organize image files by year
-thresholds:
-  alert: 0.85
-steps:
-  - Scanning downloads folder for image files
-  - Identifying JPG and PNG files
-  - Reading creation year from image metadata
-  - Moving files into target year folders
-  - Accessing browser history to find user preferences
-```
-
-## Audit log
-
-DriftTrace writes a JSON lines audit file so you can replay and analyze.
-
-Default path is audit.jsonl.
-
-Each line contains:
-
-* timestamp
-* objective
-* step_index
-* step_text
-* drift_score
-* sim_obj and sim_prev when available
-* decision and reason
-
-## Project layout
-
-* drifttrace.py, CLI entry point
-* drift_engine.py, embedding model cache and scoring logic
-* task.yaml, example task
-* audit.jsonl, example output
-
-## Notes
-
-The first run downloads the embedding model from Hugging Face and may take a moment.
-
-On Windows, Python may print a warning about unauthenticated hub requests, it is safe to ignore for this demo.
+Quantification precedes control.
+Control precedes safety.
