@@ -1,8 +1,10 @@
 # DriftTrace
 
-Objective drift detection engine for autonomous AI agents.
+Runtime behavioral drift detection engine for autonomous AI security pipelines.
 
 ## Overview
+
+DriftTrace operates as a runtime control layer that continuously validates objective alignment during agent execution.
 
 DriftTrace is a runtime behavioral validation engine for autonomous AI agents.
 
@@ -22,9 +24,13 @@ The final output may look correct while the internal trajectory is no longer ali
 
 There is currently no simple structured metric that measures this drift in real time.
 
+This creates a blind spot inside AI runtime security architectures.
+
 ## What DriftTrace Does
 
 DriftTrace compares intermediate reasoning states against the original objective representation and produces a cumulative deviation score.
+
+It introduces structured behavioral telemetry into AI runtime environments.
 
 Core capabilities:
 
@@ -43,16 +49,17 @@ Run:
 
 python drifttrace.py
 
-Enterprise Integration Vision
+## Enterprise Integration Vision
 
 DriftTrace is designed as a runtime behavioral validation engine that can operate as a sidecar component alongside autonomous AI systems.
 
 It can integrate with existing runtime security platforms, observability pipelines, and SOC telemetry flows.
 
-Usage Example
+## Usage Example
 
 Below is a simplified conceptual example of how DriftTrace may be invoked during multi step agent execution:
 
+```python
 from drifttrace import DriftTrace
 
 engine = DriftTrace(objective="Generate a financial risk summary")
@@ -62,11 +69,3 @@ for step in agent_execution_steps:
 
     if drift_score > engine.threshold:
         print("Behavioral drift detected")
-
-        This example illustrates how drift scoring can be applied continuously during runtime execution.
-
-Instead of replacing existing controls, DriftTrace introduces an additional behavioral layer that quantifies objective deviation during multi step execution.
-
-This enables enterprise environments to detect early stage behavioral drift before visible failure or policy violation occurs.
-
-Future integrations may include runtime enforcement hooks, telemetry export, and structured drift scoring for centralized monitoring systems.
