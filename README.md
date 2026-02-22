@@ -49,6 +49,22 @@ DriftTrace is designed as a runtime behavioral validation engine that can operat
 
 It can integrate with existing runtime security platforms, observability pipelines, and SOC telemetry flows.
 
+Usage Example
+
+Below is a simplified conceptual example of how DriftTrace may be invoked during multi step agent execution:
+
+from drifttrace import DriftTrace
+
+engine = DriftTrace(objective="Generate a financial risk summary")
+
+for step in agent_execution_steps:
+    drift_score = engine.evaluate(step)
+
+    if drift_score > engine.threshold:
+        print("Behavioral drift detected")
+
+        This example illustrates how drift scoring can be applied continuously during runtime execution.
+
 Instead of replacing existing controls, DriftTrace introduces an additional behavioral layer that quantifies objective deviation during multi step execution.
 
 This enables enterprise environments to detect early stage behavioral drift before visible failure or policy violation occurs.
