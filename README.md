@@ -33,7 +33,9 @@ DriftTrace outputs a small set of signals that are easy to ingest:
 2. Multi step deviation scoring  
 3. Cumulative divergence monitoring  
 4. Threshold based alerting  
-5. Exportable telemetry record for pipelines  
+5. Exportable telemetry record for pipelines
+
+   In under 5 seconds DriftTrace will simulate multi step agent behavior and detect objective drift. 
 
 ## Quickstart
 
@@ -41,9 +43,9 @@ Install dependencies
 
 pip install -r requirements.txt
 
-Run
+Run demo
 
-python drifttrace.py
+python drifttrace.py demo
 
 ## Usage Example
 
