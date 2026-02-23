@@ -1,45 +1,51 @@
-# DriftTrace
-
-![DriftTrace Demo](demo.gif)
+DriftTrace
 
 Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
 
-## Overview
+In under 5 seconds DriftTrace simulates multi step agent behavior and detects objective drift in real time.
+
+Overview
 
 DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
 
 Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
 
-## The Problem
+The Problem
 
-Autonomous agents rarely fail instantly.  
+Autonomous agents rarely fail instantly.
 They drift.
 
 Small reasoning deviations accumulate across steps. Minor objective reinterpretations compound. The final output may still look acceptable while the internal trajectory has already diverged.
 
 Security teams need an early warning signal, not a postmortem.
 
-## What DriftTrace Produces
+What DriftTrace Produces
 
 DriftTrace outputs a small set of signals that are easy to ingest:
 
-1. drift_score, a continuous score that increases as objective deviation grows  
-2. severity, a normalized level derived from drift_score and thresholds  
-3. objective_fidelity, estimated alignment of the current step to the original objective  
-4. step_index, where the drift was observed  
-5. metadata, optional context for correlation  
+drift_score — continuous score that increases as objective deviation grows
 
-## Core Capabilities
+severity — normalized level derived from drift_score and thresholds
 
-1. Objective representation tracking  
-2. Multi step deviation scoring  
-3. Cumulative divergence monitoring  
-4. Threshold based alerting  
-5. Exportable telemetry record for pipelines
+objective_fidelity — estimated alignment of the current step to the original objective
 
-   In under 5 seconds DriftTrace will simulate multi step agent behavior and detect objective drift. 
+step_index — where the drift was observed
 
-## Quickstart
+metadata — optional context for correlation
+
+Core Capabilities
+
+Objective representation tracking
+
+Multi step deviation scoring
+
+Cumulative divergence monitoring
+
+Threshold based alerting
+
+Exportable telemetry record for pipelines
+
+Quickstart
 
 Install dependencies
 
@@ -49,11 +55,11 @@ Run demo
 
 python drifttrace.py demo
 
-## Usage Example
+The demo simulates multi step agent execution and detects objective drift automatically.
+
+Usage Example
 
 Conceptual usage during multi step agent execution:
-
-```python
 from drifttrace import DriftTrace
 
 engine = DriftTrace(objective="Generate financial risk summary")
