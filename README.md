@@ -1,6 +1,14 @@
 # DriftTrace
 
+Objective drift detection layer for autonomous AI agents before visible failure.
+
+## Live Demo
+
 ![DriftTrace Demo](demo.gif)
+
+Run locally:
+
+    python drifttrace.py demo
 
 Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
 
