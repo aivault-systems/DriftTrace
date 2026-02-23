@@ -1,4 +1,6 @@
-DriftTrace
+# DriftTrace
+
+![DriftTrace Demo](demo.gif)
 
 Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
 
