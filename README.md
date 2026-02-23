@@ -20,6 +20,13 @@ DriftTrace measures how far an autonomous agent deviates from its original objec
 
 Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
 
+## Integration Concept
+
+DriftTrace emits structured runtime signals such as drift_score, severity, and objective_fidelity.
+These signals can be forwarded to XDR, SIEM, or runtime protection pipelines.
+Designed to plug into existing security telemetry flows.
+No model modification required.
+
 The Problem
 
 Autonomous agents rarely fail instantly.
