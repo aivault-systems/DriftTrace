@@ -1,17 +1,19 @@
 DriftTrace
 
-Runtime enforcement layer for autonomous AI agents.
+Runtime enforcement gateway for autonomous AI agents.
 
 DriftTrace monitors agent reasoning direction in real time and blocks behavioral drift before sensitive tool execution occurs.
 
 Runtime Enforcement Demo
+
+![Runtime Enforcement Demo](enforcement.gif)
 
 Run live gateway:
 
 python drift_gateway.py live --workdir .
 
 DriftTrace operates as a runtime gateway that evaluates every agent step before execution.
-If behavioral deviation exceeds policy threshold, the action is blocked.
+If behavioral deviation exceeds a defined threshold, the action is blocked.
 
 No model modification required.
 Zero config sidecar architecture.
@@ -28,21 +30,28 @@ DriftTrace provides an early runtime signal and enforcement decision before dama
 
 Core Runtime Capabilities
 
-• Objective representation tracking
-• Directional multi step deviation scoring
-• Cumulative divergence monitoring
-• Threshold based enforcement
-• Tool call interception
-• Structured runtime telemetry emission
+Objective representation tracking
+
+Directional multi step deviation scoring
+
+Cumulative divergence monitoring
+
+Threshold based enforcement
+
+Tool call interception
+
+Structured runtime telemetry emission
 
 Runtime Architecture
 
 DriftTrace consists of two layers:
 
 Drift Engine
+
 Computes directional drift score using objective similarity and behavioral continuity weighting.
 
 Drift Gateway
+
 Intercepts tool calls in real time.
 Applies enforcement policy.
 Returns ALLOW or BLOCK verdict before execution.
@@ -54,10 +63,15 @@ Signals Produced
 Each evaluated step produces:
 
 drift_score
+
 severity
+
 objective_fidelity
+
 step_index
+
 reason
+
 verdict
 
 Signals are structured and export ready for XDR, SIEM, or runtime governance pipelines.
@@ -74,18 +88,13 @@ python drift_gateway.py live --workdir .
 
 You will see:
 
-• Drift scoring per step
-• Severity classification
-• Runtime ALLOW or BLOCK decision
-• Enforcement trigger when threshold exceeded
+Drift scoring per step
 
-Offline Drift Simulation
+Severity classification
 
-Run simulation mode:
+Runtime ALLOW or BLOCK decision
 
-python drifttrace.py demo
-
-This mode demonstrates multi step reasoning drift detection without enforcement.
+Enforcement trigger when threshold exceeded
 
 Integration Concept
 
@@ -102,7 +111,6 @@ No modification of foundation model.
 Works with existing agent orchestration frameworks.
 
 Example Conceptual Usage
-
 from drifttrace import DriftTrace
 
 engine = DriftTrace(objective="Generate financial risk summary")
@@ -112,9 +120,16 @@ for step in agent_execution_steps:
 
     if signal["severity"] in ["HIGH", "CRITICAL"]:
         print("Behavioral drift detected")
-
-        Positioning
+Positioning
 
 DriftTrace is a runtime behavioral control layer for enterprise AI systems.
 
 It transforms drift detection from postmortem analysis into active runtime enforcement.
+
+Design Partner Program
+
+We are currently opening a limited design partner program for organizations building autonomous AI agents.
+
+See full details here:
+
+[Design Partner Program](DESIGN_PARTNER.md)
