@@ -1,98 +1,61 @@
 # DriftTrace
 
-Agent Runtime Guard for Enterprise AI Systems.
+Enterprise Core Runtime Guard for Autonomous AI Systems.
 
-Lightweight runtime module that evaluates objective deviation and produces a structured Drift Event during agent execution.
+DriftTrace evaluates behavioral drift inside autonomous agent execution flows and produces a structured Drift Event in real time.
 
-API Overview
+## API Overview
 
 POST /evaluate
 
-Input
+Input:
+- objective
+- steps
+- context
 
-objective
+Output:
+- drift_score
+- severity
+- objective_fidelity
+- reason
+- recommendation
+- verdict
 
-steps
-
-context
-
-Output
-
-drift_score
-
-severity
-
-objective_fidelity
-
-reason
-
-recommendation
-
-verdict
-
-Runtime Behavior
+## Runtime Behavior
 
 DriftTrace evaluates agent execution steps against the original objective.
 
 If deviation exceeds a defined threshold, a structured Drift Event is generated.
 
 The consuming platform decides whether to:
-
-Allow execution
-
-Trigger review
-
-Block action
+- Allow execution
+- Trigger review
+- Block action
 
 DriftTrace does not replace orchestration.
 It produces a runtime signal that can be consumed by enforcement or workflow systems.
 
-Runtime Enforcement Demo
+## Core Runtime Capabilities
 
-![Runtime Enforcement Demo](enforcement.gif)
+- Objective representation tracking
+- Multi step directional deviation scoring
+- Cumulative divergence monitoring
+- Threshold based drift classification
+- Structured runtime telemetry emission
 
-What Problem It Solves
+## Signals Produced
 
-Autonomous agents rarely fail instantly.
-They drift.
+Each evaluation produces:
+- drift_score
+- severity
+- objective_fidelity
+- reason
+- recommendation
+- verdict
 
-Minor reasoning deviations accumulate across multi step execution.
-The final output may appear valid while internal intent has already diverged.
+Signals are export ready for SIEM, XDR, orchestration engines, or governance pipelines.
 
-Traditional monitoring detects issues after execution.
-DriftTrace provides objective deviation scoring during execution.
-
-Core Runtime Capabilities
-
-Objective representation tracking
-
-Multi step directional deviation scoring
-
-Cumulative divergence monitoring
-
-Threshold based drift classification
-
-Structured runtime telemetry emission
-
-Signals Produced
-
-Each evaluation produces a structured Drift Event containing:
-
-drift_score
-
-severity
-
-objective_fidelity
-
-reason
-
-recommendation
-
-verdict
-
-Events are export ready for orchestration engines, SOAR systems, SIEM pipelines, or workflow automation layers.
-
-Quickstart
+## Quickstart
 
 Install dependencies:
 
@@ -106,35 +69,18 @@ Open:
 
 http://127.0.0.1:8000/docs
 
-Integration Model
+## Positioning
 
-DriftTrace sits between:
+DriftTrace is a Core Runtime Guard module.
 
-Agent Reasoning Layer
-Tool Execution Layer
+It transforms hidden reasoning drift into structured governance telemetry during execution.
 
-It evaluates intent before execution, not after failure.
-
-No retraining required.
-No modification of foundation model.
-Designed to integrate with existing agent orchestration frameworks.
-
-Positioning
-
-DriftTrace is an Agent Runtime Guard module.
-
-It transforms drift detection from postmortem analysis into structured runtime signaling that platform teams can act upon.
-
-Design Partner Program
+## Design Partner Program
 
 We are opening a limited design partner program for organizations building autonomous AI agents.
 
-See full details here:
-
-Design Partner Program
-
-[Design Partner Program](DESIGN_PARTNER.md)
+See details in:
+DESIGN_PARTNER.md
 
 For enterprise design partnership inquiries:
-Contact: aivault@aivaultsystems.com
-
+aivault@aivaultsystems.com
