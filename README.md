@@ -2,7 +2,7 @@
 
 The first runtime control gateway that actively blocks autonomous agent drift before tool execution.
 
-DriftTrace monitors agent reasoning direction in real time and blocks behavioral drift before sensitive tool execution occurs.
+Autonomous agents can silently drift into unsafe actions. DriftTrace evaluates intent in real time and stops execution before damage occurs.
 
 Runtime Enforcement Demo
 
@@ -10,31 +10,28 @@ Runtime Enforcement Demo
 
 Run live gateway:
 
-
-
-python drift_gateway.py live --workdir .
-
-DriftTrace operates as a runtime gateway that evaluates every agent step before execution.
+DriftTrace evaluates every agent step before tool execution.
 If behavioral deviation exceeds a defined threshold, the action is blocked.
 
 No model modification required.
-Zero config sidecar architecture.
+Zero configuration sidecar architecture.
 
-What DriftTrace Does
+What Problem It Solves
 
 Autonomous agents rarely fail instantly.
 They drift.
 
 Minor reasoning deviations accumulate across multi step execution.
-The final output may still appear valid while internal intent has diverged.
+The final output may appear valid while internal intent has already diverged.
 
-DriftTrace provides an early runtime signal and enforcement decision before damage occurs.
+Traditional monitoring detects issues after execution.
+DriftTrace enforces control before execution.
 
 Core Runtime Capabilities
 
 Objective representation tracking
 
-Directional multi step deviation scoring
+Multi step directional deviation scoring
 
 Cumulative divergence monitoring
 
@@ -46,7 +43,7 @@ Structured runtime telemetry emission
 
 Runtime Architecture
 
-DriftTrace consists of two layers:
+DriftTrace consists of two components:
 
 Drift Engine
 
@@ -82,6 +79,8 @@ Quickstart
 
 Install dependencies:
 
+Install dependencies:
+
 pip install -r requirements.txt
 
 Run runtime gateway demo:
@@ -100,10 +99,9 @@ Enforcement trigger when threshold exceeded
 
 Integration Concept
 
-DriftTrace is designed to sit between:
+DriftTrace sits between:
 
 Agent Reasoning Layer
-and
 Tool Execution Layer
 
 It evaluates intent before execution, not after failure.
@@ -113,6 +111,7 @@ No modification of foundation model.
 Works with existing agent orchestration frameworks.
 
 Example Conceptual Usage
+
 from drifttrace import DriftTrace
 
 engine = DriftTrace(objective="Generate financial risk summary")
@@ -130,7 +129,7 @@ It transforms drift detection from postmortem analysis into active runtime enfor
 
 Design Partner Program
 
-We are currently opening a limited design partner program for organizations building autonomous AI agents.
+We are opening a limited design partner program for organizations building autonomous AI agents.
 
 See full details here:
 
