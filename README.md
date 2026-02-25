@@ -1,6 +1,6 @@
-DriftTrace
+# DriftTrace
 
-Runtime enforcement gateway for autonomous AI agents.
+The first runtime control gateway that actively blocks autonomous agent drift before tool execution.
 
 DriftTrace monitors agent reasoning direction in real time and blocks behavioral drift before sensitive tool execution occurs.
 
@@ -9,6 +9,8 @@ Runtime Enforcement Demo
 ![Runtime Enforcement Demo](enforcement.gif)
 
 Run live gateway:
+
+
 
 python drift_gateway.py live --workdir .
 
