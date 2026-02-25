@@ -1,73 +1,140 @@
 # DriftTrace
 
-![DriftTrace Demo](demo.gif)
+Agent Runtime Guard for Enterprise AI Systems.
 
-Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
+Lightweight runtime module that evaluates objective deviation and produces a structured Drift Event during agent execution.
 
-In under 5 seconds DriftTrace simulates multi step agent behavior and detects objective drift in real time.
+API Overview
 
-Overview
+POST /evaluate
 
-DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
+Input
 
-Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
+objective
 
-The Problem
+steps
+
+context
+
+Output
+
+drift_score
+
+severity
+
+objective_fidelity
+
+reason
+
+recommendation
+
+verdict
+
+Runtime Behavior
+
+DriftTrace evaluates agent execution steps against the original objective.
+
+If deviation exceeds a defined threshold, a structured Drift Event is generated.
+
+The consuming platform decides whether to:
+
+Allow execution
+
+Trigger review
+
+Block action
+
+DriftTrace does not replace orchestration.
+It produces a runtime signal that can be consumed by enforcement or workflow systems.
+
+Runtime Enforcement Demo
+
+![Runtime Enforcement Demo](enforcement.gif)
+
+What Problem It Solves
 
 Autonomous agents rarely fail instantly.
 They drift.
 
-Small reasoning deviations accumulate across steps. Minor objective reinterpretations compound. The final output may still look acceptable while the internal trajectory has already diverged.
+Minor reasoning deviations accumulate across multi step execution.
+The final output may appear valid while internal intent has already diverged.
 
-Security teams need an early warning signal, not a postmortem.
+Traditional monitoring detects issues after execution.
+DriftTrace provides objective deviation scoring during execution.
 
-What DriftTrace Produces
-
-DriftTrace outputs a small set of signals that are easy to ingest:
-
-drift_score — continuous score that increases as objective deviation grows
-
-severity — normalized level derived from drift_score and thresholds
-
-objective_fidelity — estimated alignment of the current step to the original objective
-
-step_index — where the drift was observed
-
-metadata — optional context for correlation
-
-Core Capabilities
+Core Runtime Capabilities
 
 Objective representation tracking
 
-Multi step deviation scoring
+Multi step directional deviation scoring
 
 Cumulative divergence monitoring
 
-Threshold based alerting
+Threshold based drift classification
 
-Exportable telemetry record for pipelines
+Structured runtime telemetry emission
+
+Signals Produced
+
+Each evaluation produces a structured Drift Event containing:
+
+drift_score
+
+severity
+
+objective_fidelity
+
+reason
+
+recommendation
+
+verdict
+
+Events are export ready for orchestration engines, SOAR systems, SIEM pipelines, or workflow automation layers.
 
 Quickstart
 
-Install dependencies
+Install dependencies:
 
 pip install -r requirements.txt
 
-Run demo
+Run the API locally:
 
-python drifttrace.py demo
+python -m uvicorn app:app --reload
 
-The demo simulates multi step agent execution and detects objective drift automatically.
+Open:
 
-Usage Example
+http://127.0.0.1:8000/docs
 
-Conceptual usage during multi step agent execution:
-from drifttrace import DriftTrace
+Integration Model
 
-engine = DriftTrace(objective="Generate financial risk summary")
+DriftTrace sits between:
 
-for step in agent_execution_steps:
-    signal = engine.evaluate(step)
+Agent Reasoning Layer
+Tool Execution Layer
 
-    if signal["severity"] in ["HIGH", "CRITICAL"]:
-        print("Behavioral drift detected")
+It evaluates intent before execution, not after failure.
+
+No retraining required.
+No modification of foundation model.
+Designed to integrate with existing agent orchestration frameworks.
+
+Positioning
+
+DriftTrace is an Agent Runtime Guard module.
+
+It transforms drift detection from postmortem analysis into structured runtime signaling that platform teams can act upon.
+
+Design Partner Program
+
+We are opening a limited design partner program for organizations building autonomous AI agents.
+
+See full details here:
+
+Design Partner Program
+
+[Design Partner Program](DESIGN_PARTNER.md)
+
+For enterprise design partnership inquiries:
+Contact: aivault@aivaultsystems.com
+
