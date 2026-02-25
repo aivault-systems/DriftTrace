@@ -1,82 +1,108 @@
-# DriftTrace
+DriftTrace
 
-Objective drift detection layer for autonomous AI agents before visible failure.
+Runtime enforcement layer for autonomous AI agents.
 
-## Live Demo
+DriftTrace monitors agent reasoning direction in real time and blocks behavioral drift before sensitive tool execution occurs.
 
-![DriftTrace Demo](demo.gif)
+Runtime Enforcement Demo
 
-Run locally:
+Run live gateway:
 
-    python drifttrace.py demo
+python drift_gateway.py live --workdir .
 
-Runtime behavioral drift detection signal layer for enterprise AI runtime environments.
+DriftTrace operates as a runtime gateway that evaluates every agent step before execution.
+If behavioral deviation exceeds policy threshold, the action is blocked.
 
-In under 5 seconds DriftTrace simulates multi step agent behavior and detects objective drift in real time.
-
-Overview
-
-DriftTrace measures how far an autonomous agent deviates from its original objective during multi step execution.
-
-Instead of waiting for visible failure, DriftTrace produces a structured drift signal in real time that can be forwarded to security and observability systems.
-
-## Integration Concept
-
-DriftTrace emits structured runtime signals such as drift_score, severity, and objective_fidelity.
-These signals can be forwarded to XDR, SIEM, or runtime protection pipelines.
-Designed to plug into existing security telemetry flows.
 No model modification required.
+Zero config sidecar architecture.
 
-The Problem
+What DriftTrace Does
 
 Autonomous agents rarely fail instantly.
 They drift.
 
-Small reasoning deviations accumulate across steps. Minor objective reinterpretations compound. The final output may still look acceptable while the internal trajectory has already diverged.
+Minor reasoning deviations accumulate across multi step execution.
+The final output may still appear valid while internal intent has diverged.
 
-Security teams need an early warning signal, not a postmortem.
+DriftTrace provides an early runtime signal and enforcement decision before damage occurs.
 
-What DriftTrace Produces
+Core Runtime Capabilities
 
-DriftTrace outputs a small set of signals that are easy to ingest:
+• Objective representation tracking
+• Directional multi step deviation scoring
+• Cumulative divergence monitoring
+• Threshold based enforcement
+• Tool call interception
+• Structured runtime telemetry emission
 
-drift_score — continuous score that increases as objective deviation grows
+Runtime Architecture
 
-severity — normalized level derived from drift_score and thresholds
+DriftTrace consists of two layers:
 
-objective_fidelity — estimated alignment of the current step to the original objective
+Drift Engine
+Computes directional drift score using objective similarity and behavioral continuity weighting.
 
-step_index — where the drift was observed
+Drift Gateway
+Intercepts tool calls in real time.
+Applies enforcement policy.
+Returns ALLOW or BLOCK verdict before execution.
 
-metadata — optional context for correlation
+Designed as a drop in sidecar for agent systems.
 
-Core Capabilities
+Signals Produced
 
-Objective representation tracking
+Each evaluated step produces:
 
-Multi step deviation scoring
+drift_score
+severity
+objective_fidelity
+step_index
+reason
+verdict
 
-Cumulative divergence monitoring
-
-Threshold based alerting
-
-Exportable telemetry record for pipelines
+Signals are structured and export ready for XDR, SIEM, or runtime governance pipelines.
 
 Quickstart
 
-Install dependencies
+Install dependencies:
 
 pip install -r requirements.txt
 
-Run demo
+Run runtime gateway demo:
+
+python drift_gateway.py live --workdir .
+
+You will see:
+
+• Drift scoring per step
+• Severity classification
+• Runtime ALLOW or BLOCK decision
+• Enforcement trigger when threshold exceeded
+
+Offline Drift Simulation
+
+Run simulation mode:
 
 python drifttrace.py demo
 
-The demo simulates multi step agent execution and detects objective drift automatically.
+This mode demonstrates multi step reasoning drift detection without enforcement.
 
-Usage Example
+Integration Concept
 
-Conceptual usage during multi step agent execution:
+DriftTrace is designed to sit between:
+
+Agent Reasoning Layer
+and
+Tool Execution Layer
+
+It evaluates intent before execution, not after failure.
+
+No retraining required.
+No modification of foundation model.
+Works with existing agent orchestration frameworks.
+
+Example Conceptual Usage
+
 from drifttrace import DriftTrace
 
 engine = DriftTrace(objective="Generate financial risk summary")
@@ -86,3 +112,9 @@ for step in agent_execution_steps:
 
     if signal["severity"] in ["HIGH", "CRITICAL"]:
         print("Behavioral drift detected")
+
+        Positioning
+
+DriftTrace is a runtime behavioral control layer for enterprise AI systems.
+
+It transforms drift detection from postmortem analysis into active runtime enforcement.
