@@ -4,6 +4,13 @@ The first runtime control gateway that actively blocks autonomous agent drift be
 
 Autonomous agents can silently drift into unsafe actions. DriftTrace evaluates intent in real time and stops execution before damage occurs.
 
+Traditional monitoring detects agent failure after execution. DriftTrace enforces control before execution.
+
+For enterprise design partnership inquiries:
+Contact: aivault@aivaultsystems.com
+
+---
+
 Runtime Enforcement Demo
 
 ![Runtime Enforcement Demo](enforcement.gif)
