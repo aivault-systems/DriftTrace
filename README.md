@@ -6,6 +6,8 @@ Autonomous agents can silently drift into unsafe actions. DriftTrace evaluates i
 
 Traditional monitoring detects agent failure after execution. DriftTrace enforces control before execution.
 
+Runtime drift becomes a blocking decision, not a postmortem metric.
+
 For enterprise design partnership inquiries:
 Contact: aivault@aivaultsystems.com
 
